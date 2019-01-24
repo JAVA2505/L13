@@ -1,11 +1,21 @@
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+@XmlRootElement
 public class Company {
-    private int id;
-    private String director;
-    private String name;
+    @XmlAttribute
+    public int id;
+    @XmlElement
+    public String director;
+    @XmlAttribute
+    public String name;
+    @XmlElementWrapper(name = "departments")
+    @XmlElement(name = "department")
     private List<Department> departments = new LinkedList<>();
 
     public Company() {
@@ -15,38 +25,6 @@ public class Company {
         this.id = id;
         this.director = director;
         this.name = name;
-        this.departments = departments;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Department> getDepartments() {
-        return departments;
-    }
-
-    public void setDepartments(List<Department> departments) {
         this.departments = departments;
     }
 

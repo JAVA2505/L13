@@ -1,11 +1,20 @@
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+@XmlRootElement
 public class Department {
-    private int id;
-    private String name;
-    private List<Employee> emplyees = new LinkedList<>();
+    @XmlAttribute
+    public int id;
+    @XmlAttribute
+    public String name;
+    @XmlElementWrapper(name = "employees")
+    @XmlElement(name = "employee")
+    public List<Employee> emplyees = new LinkedList<>();
 
     public Department() {
     }
@@ -13,30 +22,6 @@ public class Department {
     public Department(int id, String name, List<Employee> emplyees) {
         this.id = id;
         this.name = name;
-        this.emplyees = emplyees;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Employee> getEmplyees() {
-        return emplyees;
-    }
-
-    public void setEmplyees(List<Employee> emplyees) {
         this.emplyees = emplyees;
     }
 

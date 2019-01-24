@@ -1,30 +1,20 @@
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
+@XmlRootElement
 public class Employee {
-    private int id;
-    private String name;
+    @XmlAttribute
+    public int id;
+    @XmlElement
+    public String name;
 
     public Employee() {
     }
 
     public Employee(int id, String name) {
         this.id = id;
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 
