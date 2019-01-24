@@ -1,0 +1,35 @@
+{
+  "id": 1,
+  "name": "Microsoft",
+  "director": "Bill",
+  "departments": [
+    {
+      "id": 1,
+      "name": "Logistics",
+      "emplyees": [
+        {
+          "id": 1,
+          "name": "Manuel"
+        },
+        {
+          "id": 2,
+          "name": "Pedro"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Development",
+      "emplyees": [
+        {
+          "id": 1,
+          "name": "Alex"
+        },
+        {
+          "id": 2,
+          "name": "Petr"
+        }
+      ]
+    }
+  ]
+}
