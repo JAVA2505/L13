@@ -16,7 +16,7 @@ public class Company {
     public String name;
     @XmlElementWrapper(name = "departments")
     @XmlElement(name = "department")
-    private List<Department> departments = new LinkedList<>();
+    public List<Department> departments = new LinkedList<>();
 
     public Company() {
     }

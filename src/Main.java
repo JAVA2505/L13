@@ -47,48 +47,77 @@ public class Main {
         Company c2 = (Company) um.unmarshal(f2);
 
         System.out.println(c2);
-
+        System.out.println("============================================================================");
         SAXParserFactory saxFactory = SAXParserFactory.newInstance();
         SAXParser p = saxFactory.newSAXParser();
         DefaultHandler dh = new DefaultHandler() {
-            boolean isInCorrectDepartment = false;
+            Company c3 = null;
+            Department d = null;
+            Employee e = null;
+
+            boolean isInDirector = false;
             boolean isInCorrectEmplyee = false;
-            boolean isInName = false;
 
             @Override
             public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-                if (qName.equals("department") && attributes.getValue("id").equals("2")) {
-                    isInCorrectDepartment = true;
+                if (qName.equals("company")) {
+                    c3 = new Company();
+                    c3.id = Integer.parseInt(attributes.getValue("id"));
+                    c3.name = attributes.getValue("name");
                 }
-                if (isInCorrectDepartment && qName.equals("employee") && attributes.getValue("id").equals("2")) {
+                if (qName.equals("director")) {
+                    isInDirector = true;
+                }
+                if (qName.equals("department")) {
+                    d = new Department();
+                    d.id = Integer.parseInt(attributes.getValue("id"));
+                    d.name = attributes.getValue("name");
+                }
+                if (qName.equals("employee")) {
+                    e = new Employee();
+                    e.id = Integer.parseInt(attributes.getValue("id"));
                     isInCorrectEmplyee = true;
                 }
-                if (isInCorrectEmplyee && qName.equals("name")) {
-                    isInName = true;
-                }
+
             }
 
             @Override
             public void endElement(String uri, String localName, String qName) throws SAXException {
-                if (qName.equals("department")) {
-                    isInCorrectDepartment = false;
+
+                if (qName.equals("director")) {
+                    isInDirector = false;
                 }
                 if (qName.equals("employee")) {
+                    d.emplyees.add(e);
+                    e = null;
                     isInCorrectEmplyee = false;
                 }
-                if (qName.equals("name")) {
-                    isInName = false;
+                if (qName.equals("department")) {
+                    c3.departments.add(d);
+                    d = null;
                 }
+                if (qName.equals("company")) {
+                    System.out.println(c3);
+                }
+
             }
 
             @Override
             public void characters(char[] ch, int start, int length) throws SAXException {
-                if (isInName) {
+                if (isInDirector) {
                     String s = "";
                     for (int i = start; i < start + length; i++) {
                         s += ch[i];
                     }
-                    System.out.println(s);
+                    c3.director = s;
+                }
+                if (isInCorrectEmplyee) {
+                    String s = "";
+                    for (int i = start; i < start + length; i++) {
+                        s += ch[i];
+                    }
+                    e.name = s;
+
                 }
             }
         };
